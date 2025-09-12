@@ -9,7 +9,7 @@ class Human:
         self.screen_rect = lk_game.screen.get_rect()
 
         #loading the human image:
-        self.image = pygame.image.load('IMG_Human_1.bmp')
+        self.image = pygame.image.load('assets/images/humans/IMG_Human_1.bmp')
         self.rect = self.image.get_rect()
 
         #start each new human at the bottom center of the screen.

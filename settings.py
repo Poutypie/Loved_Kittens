@@ -13,3 +13,7 @@ class Settings:
         self.love_height = 5
         self.love_color = (255, 100, 150)
         self.love_allowed = 5
+
+        #kitten size settings and it's scale
+        self.kitten_width = 98
+        self.kitten_height = 70

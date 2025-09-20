@@ -1,8 +1,11 @@
+from hmac import new
 import sys
 import pygame
 from settings import Settings
 from human import Human
 from love import Love
+from kitten import Kitten
+
 
 class LovedKittens:
     """overall class to manage game assets and behavior."""
@@ -20,6 +23,9 @@ class LovedKittens:
         pygame.display.set_caption("Loved Kittens")
         self.human = Human(self)
         self.love = pygame.sprite.Group()
+        self.kittens = pygame.sprite.Group()
+
+        self._create_mattress()
 
     def rungame(self):
         """start the main loop for the game."""
@@ -73,12 +79,30 @@ class LovedKittens:
             if lv.rect.bottom <=0:
                 self.love.remove(lv)
 
+    def _create_mattress(self):
+        """create the mattress of kittens"""
+        #spacing between kittens is one kitten width.
+        kitten = Kitten(self)
+        kitten_width = kitten.rect.width
+        kitten_height = kitten.rect.height
+
+        current_x = self.settings.kitten_width
+        while current_x < (self.settings.screen_width - 2 * kitten_width):
+            new_kitten = Kitten(self)
+            new_kitten.rect.x = current_x
+            new_kitten.rect.y = kitten_height
+            self.kittens.add(new_kitten)
+            current_x += 2 * kitten_width
+
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
         for spark in self.love.sprites():
             spark.draw_love()
         self.human.blitme()
+        self.kittens.draw(self.screen)
+
+        pygame.display.flip()
 
 if __name__ == '__main__':
     #make a game instance, and run the game.

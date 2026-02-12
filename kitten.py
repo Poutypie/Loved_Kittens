@@ -12,6 +12,10 @@ class Kitten(Sprite):
 
         #loading the kitten image and its rect attribute.
         self.image = pygame.image.load('assets/images/kittens/normal_kitten_0.bmp')
+        self.image = pygame.transform.scale(
+            self.image,
+            (self.settings.kitten_width, self.settings.kitten_height)
+        )
         self.rect = self.image.get_rect()
 
         #scale the image to a smaller size

@@ -4,8 +4,8 @@ here's the first game i am creating.
 
 
 ## Built With
-- Python
-- Pygame
+- Python 3.11.0
+- Pygame 2.6.1
 
 ## Project Status
  - in progress...

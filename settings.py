@@ -2,8 +2,8 @@ class Settings:
     """A class to store all the settings for Loved Kittens."""
     def __init__(self):
         #screen settings:
-        self.screen_width = 1366
-        self.screen_height = 768
+        self.screen_width = 0
+        self.screen_height = 0
         self.bg_color = (255, 192, 203)
         #human settings:
         self.human_speed = 3.5

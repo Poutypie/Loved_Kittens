@@ -25,11 +25,8 @@ class Human:
         """update the human's positon based on the movement flags."""
         if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.human_speed
-            #self.rect.x += 1.0
         if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.human_speed
-            #self.rect.x += -1.0
-            #or: self.rect.x -= 1.0
         #update rect object from self.x.
         self.rect.x = self.x
         

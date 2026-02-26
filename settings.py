@@ -7,6 +7,8 @@ class Settings:
         self.bg_color = (255, 192, 203)
         #human settings:
         self.human_speed = 3.5
+        self.human_width = 90
+        self.human_height = 135
         #love settings
         self.love_speed = 4
         self.love_width = 15
@@ -15,5 +17,5 @@ class Settings:
         self.love_allowed = 5
 
         #kitten size settings and it's scale
-        self.kitten_width = 98
-        self.kitten_height = 70
+        self.kitten_width = 78
+        self.kitten_height = 50

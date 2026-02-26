@@ -10,6 +10,13 @@ class Human:
 
         #loading the human image:
         self.image = pygame.image.load('assets/images/humans/IMG_Human_1.bmp')
+
+        #scale the image to a smaller size
+        self.image = pygame.transform.scale(
+            self.image,
+            (self.settings.human_width, self.settings.human_height)
+        )
+
         self.rect = self.image.get_rect()
 
         #start each new human at the bottom center of the screen.

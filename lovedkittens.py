@@ -87,11 +87,16 @@ class LovedKittens:
 
         current_x = self.settings.kitten_width
         while current_x < (self.settings.screen_width - 2 * kitten_width):
-            new_kitten = Kitten(self)
-            new_kitten.rect.x = current_x
-            new_kitten.rect.y = kitten_height
-            self.kittens.add(new_kitten)
+            self._create_kitten(current_x)
             current_x += 2 * kitten_width
+
+    def _create_kitten(self, x_position):
+        """create a kitten and place it in the row."""
+        new_kitten = Kitten(self)
+        new_kitten.x = x_position
+        new_kitten.rect.x = x_position
+        self.kittens.add(new_kitten)
+
 
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""

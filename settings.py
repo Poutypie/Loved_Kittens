@@ -9,9 +9,9 @@ class Settings:
         self.human_speed = 3.5
         #love settings
         self.love_speed = 4
-        self.love_width = 5
-        self.love_height = 5
-        self.love_color = (255, 100, 150)
+        self.love_width = 15
+        self.love_height = 15
+        #self.love_color = (255, 100, 150)
         self.love_allowed = 5
 
         #kitten size settings and it's scale

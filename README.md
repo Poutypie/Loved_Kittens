@@ -9,11 +9,15 @@ here's the first game i am creating.
 
 ## Project Status
  - in progress...
- - i'm still learning and currently inactive 👻👻
+ - i'm still learning and currently inactive 👻
 
 ## ToDo List
- - making kitten lines
- - cleaning messy codes
+ - [x] making kitten lines
+ - [x] cleaning messy codes
+ - [] kittens' movements
+ - [] love bullet collision to kittens
+ - [] game over
+ - [] adding buttons
 
 ## Ideas and Future Plans
  - more customizable improved settings and features:

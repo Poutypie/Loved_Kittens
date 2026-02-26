@@ -82,19 +82,24 @@ class LovedKittens:
         """create the mattress of kittens"""
         #spacing between kittens is one kitten width.
         kitten = Kitten(self)
-        kitten_width = kitten.rect.width
-        kitten_height = kitten.rect.height
+        kitten_width, kitten_height = kitten.rect.size
 
-        current_x = self.settings.kitten_width
-        while current_x < (self.settings.screen_width - 2 * kitten_width):
-            self._create_kitten(current_x)
-            current_x += 2 * kitten_width
+        current_x, current_y = kitten_width, kitten_height
+        while current_y < (self.settings.screen_height - 3 * kitten_height):
+            while current_x < (self.settings.screen_width - 2 * kitten_width):
+                self._create_kitten(current_x, current_y)
+                current_x += 2 * kitten_width
 
-    def _create_kitten(self, x_position):
+            #finish a row, reset x value, and increment y value.
+            current_x = kitten_width
+            current_y += 2 * kitten_height
+
+    def _create_kitten(self, x_position, y_position):
         """create a kitten and place it in the row."""
         new_kitten = Kitten(self)
         new_kitten.x = x_position
         new_kitten.rect.x = x_position
+        new_kitten.rect.y = y_position
         self.kittens.add(new_kitten)
 
 

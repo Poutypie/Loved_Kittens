@@ -14,8 +14,8 @@ here's the first game i am creating.
 ## ToDo List
  - [x] making kitten lines
  - [x] cleaning messy codes
- - [] kittens' movements
- - [x] love bullet collision to kittens
+ - [x] kittens' movements
+ - [x] love bullet collision with kittens
  - [] game over
  - [] adding buttons
 

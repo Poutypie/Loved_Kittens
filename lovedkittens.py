@@ -32,6 +32,7 @@ class LovedKittens:
             self._check_events()
             self.human.update()
             self.love.update()
+            self._update_kittens()
             self._update_screen()
             self._update_love()
             pygame.display.flip()
@@ -77,10 +78,25 @@ class LovedKittens:
         for lv in self.love.copy():
             if lv.rect.bottom <=0:
                 self.love.remove(lv)
+        self._check_love_kitten_collisions()
+
+
+    def _check_love_kitten_collisions(self):
+        """respond to bullet-kitten collisions."""
 
         #check for love & kittens collision:
         collisions = pygame.sprite.groupcollide(self.love, self.kittens, 
                                                 True, True)
+        
+        if not self.kittens:
+            #destroy existing love bullets and create a new mattress.
+            self.love.empty()
+            self._create_mattress()
+
+    def _update_kittens(self):
+        """update the positions of all kittens in the mattress."""
+        self._check_mattress_edges()
+        self.kittens.update()
 
     def _create_mattress(self):
         """create the mattress of kittens"""
@@ -106,6 +122,18 @@ class LovedKittens:
         new_kitten.rect.y = y_position
         self.kittens.add(new_kitten)
 
+    def _check_mattress_edges(self):
+        """respond appropriately if any kittens have reached an edge"""
+        for kitten in self.kittens.sprites():
+            if kitten.check_edges():
+                self._change_mattress_directions()
+                break
+
+    def _change_mattress_directions(self):
+        """drop the entire mattress and change the mattress' direction."""
+        for kitten in self.kittens.sprites():
+            kitten.rect.y += self.settings.mattress_drop_speed
+        self.settings.mattress_direction *= -1
 
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""

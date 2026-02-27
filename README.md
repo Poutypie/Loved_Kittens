@@ -12,12 +12,24 @@ here's the first game i am creating.
  - i'm still learning and currently inactive 👻
 
 ## ToDo List
- - [x] making kitten lines
- - [x] cleaning messy codes
- - [x] kittens' movements
- - [x] love bullet collision with kittens
- - [] game over
- - [] adding buttons
+
+- [x] Game main loop
+  <details>
+    <summary>microtasks of the main loop</summary>
+
+    - [x] making kitten lines
+    - [x] cleaning messy codes
+    - [x] kittens' movements
+    - [x] love bullet collision with kittens
+    - [x] kittens scratching human and it's message
+    - [x] game over
+
+  </details>
+
+- [] making a separate class and file for messages
+- [] better game over
+- [] adding buttons
+
 
 ## Ideas and Future Plans
  - more customizable improved settings and features:

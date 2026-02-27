@@ -1,7 +1,9 @@
 from hmac import new
 import sys
+from time import sleep
 import pygame
 from settings import Settings
+from game_stats import GameStats
 from human import Human
 from love import Love
 from kitten import Kitten
@@ -18,21 +20,31 @@ class LovedKittens:
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
-
         pygame.display.set_caption("Loved Kittens")
+
+        self.stats = GameStats(self)
         self.human = Human(self)
         self.love = pygame.sprite.Group()
         self.kittens = pygame.sprite.Group()
-
         self._create_mattress()
+        
+        #scratch message:
+        self.show_scratch_message = False
+        self.scratch_time = 0
+        self.Smessage_duration = 2000
+        self.font = pygame.font.SysFont(None, 36)
+
+        self.game_active = True
 
     def rungame(self):
         """start the main loop for the game."""
         while True:
             self._check_events()
-            self.human.update()
-            self.love.update()
-            self._update_kittens()
+            if self.game_active:
+                self.human.update()
+                self.love.update()
+                self._update_kittens()
+            
             self._update_screen()
             self._update_love()
             pygame.display.flip()
@@ -83,7 +95,6 @@ class LovedKittens:
 
     def _check_love_kitten_collisions(self):
         """respond to bullet-kitten collisions."""
-
         #check for love & kittens collision:
         collisions = pygame.sprite.groupcollide(self.love, self.kittens, 
                                                 True, True)
@@ -97,6 +108,13 @@ class LovedKittens:
         """update the positions of all kittens in the mattress."""
         self._check_mattress_edges()
         self.kittens.update()
+
+        #look for kitten-human collisions.
+        if pygame.sprite.spritecollideany(self.human, self.kittens):
+            self._human_scratch()
+            self.show_scratch_message = True
+            self.scratch_time = pygame.time.get_ticks()
+        self._check_kittens_bottom()
 
     def _create_mattress(self):
         """create the mattress of kittens"""
@@ -135,6 +153,67 @@ class LovedKittens:
             kitten.rect.y += self.settings.mattress_drop_speed
         self.settings.mattress_direction *= -1
 
+    def _check_kittens_bottom(self):
+        """check if any kitten have reached the bottom of the screen."""
+        for kitten in self.kittens.sprites():
+            if kitten.rect.bottom >= self.settings.screen_height:
+                self._human_scratch()
+                break
+
+    def _human_scratch(self):
+        """respond to the human being scratched by a cat."""
+        
+        if self.stats.humans_left > 0:
+            #decrement human_left.
+            self.stats.humans_left -= 1
+
+            #get rid of any remaining love bullets and kittens.
+            self.love.empty()
+            self.kittens.empty()
+
+            #create a new mattress and center the human.
+            self._create_mattress()
+            self.human.center_human()
+
+            #pause.
+            sleep(0.5)
+        else:
+            self.game_active = False
+
+    def _scratch_message(self):
+        """a class to manage scratch message."""
+        
+        #showing the scratch message:
+        if self.show_scratch_message:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.scratch_time < self.Smessage_duration:
+                #making the text:
+                text_scratch = self.font.render(
+                    "Kittens just scratched you and ranaway!",
+                    True,
+                    (0,0,0)
+                )
+                text_rect = text_scratch.get_rect()
+                text_rect.center = self.screen.get_rect().center
+
+                #making the text background:
+                padding = 20
+                bg_surface = pygame.Surface(
+                    (text_rect.width + padding, text_rect.height + padding
+                ),
+                pygame.SRCALPHA
+                )
+                bg_surface.fill((255, 255, 255, 180))
+                bg_rect = bg_surface.get_rect(center=text_rect.center)
+
+                #draw on the screen:
+                self.screen.blit(bg_surface, bg_rect)
+
+                text_rect.center = bg_rect.center
+                self.screen.blit(text_scratch, text_rect)
+            else:
+                self.show_scratch_message = False
+
     def _update_screen(self):
         """update images on the screen, and flip to the new screen."""
         self.screen.fill(self.settings.bg_color)
@@ -142,6 +221,7 @@ class LovedKittens:
             spark.draw_love()
         self.human.blitme()
         self.kittens.draw(self.screen)
+        self._scratch_message()
 
         pygame.display.flip()
 

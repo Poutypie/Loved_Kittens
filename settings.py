@@ -10,6 +10,7 @@ class Settings:
         self.human_speed = 3.5
         self.human_width = 90
         self.human_height = 135
+        self.human_limit = 3
 
         #love settings
         self.love_speed = 4

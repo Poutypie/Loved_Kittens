@@ -78,6 +78,10 @@ class LovedKittens:
             if lv.rect.bottom <=0:
                 self.love.remove(lv)
 
+        #check for love & kittens collision:
+        collisions = pygame.sprite.groupcollide(self.love, self.kittens, 
+                                                True, True)
+
     def _create_mattress(self):
         """create the mattress of kittens"""
         #spacing between kittens is one kitten width.

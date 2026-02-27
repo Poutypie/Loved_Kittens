@@ -15,7 +15,7 @@ here's the first game i am creating.
  - [x] making kitten lines
  - [x] cleaning messy codes
  - [] kittens' movements
- - [] love bullet collision to kittens
+ - [x] love bullet collision to kittens
  - [] game over
  - [] adding buttons
 
